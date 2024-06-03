@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Job 2</title>
+	</head>
+	<body>
+		<input type="text" id="taskInput" placeholder="Введите задачу" />
+		<button id="addButton">Добавить задачу в список</button>
+		<div id="tasksContainer"></div>
+		<style>
+			.completed {
+				text-decoration: line-through;
+			}
+		</style>
+		<script>
+			document.addEventListener('DOMContentLoaded', function () {
+				const addButton = document.getElementById('addButton')
+				const taskInput = document.getElementById('taskInput')
+				const tasksContainer = document.getElementById('tasksContainer')
+				addButton.addEventListener('click', function () {
+					const taskName = taskInput.value
+					const taskItem = document.createElement('div')
+					const checkbox = document.createElement('input')
+					checkbox.type = 'checkbox'
+					checkbox.addEventListener('change', function () {
+						if (this.checked) {
+							taskItem.classList.add('completed')
+						} else {
+							taskItem.classList.remove('completed')
+						}
+					})
+					const taskText = document.createTextNode(taskName)
+					taskItem.appendChild(checkbox)
+					taskItem.appendChild(taskText)
+					tasksContainer.appendChild(taskItem)
+					taskInput.value = ''
+				})
+				taskInput.addEventListener('input', function () {
+					addButton.disabled = !taskInput.value.trim()
+				})
+				addButton.disabled = true
+			})
+		</script>
+	</body>
+</html>
